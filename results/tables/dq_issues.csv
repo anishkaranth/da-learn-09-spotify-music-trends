@@ -1,0 +1,12 @@
+check_name,affected_rows
+"playlist_rows: duplicate (track_id, playlist_id) rows dropped",582
+tracks: appear on more than one playlist row,2818
+tracks: appear under more than one genre (primary genre assigned),1533
+"tracks: duration outlier (outside Q1/Q3 -/+ 3*IQR, kept)",191
+tracks: missing name / artist / album (NA),4
+tracks: popularity = 0,2620
+tracks: release date year-month only,25
+tracks: release date year-only,1656
+tracks: same name + artist under several track_ids (kept),3943
+tracks: shorter than 1 minute (kept),25
+tracks: tempo = 0 (set NULL),1

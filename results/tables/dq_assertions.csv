@@ -1,0 +1,14 @@
+check_name,failed_rows,status
+0-1 audio features in range,0,PASS
+every release date parsed,0,PASS
+"fact_playlist_track (track_id, playlist_id) unique",0,PASS
+fact_playlist_track.playlist_id -> dim_playlist,0,PASS
+fact_playlist_track.track_id -> fact_track,0,PASS
+fact_track rows = distinct raw track_id,0,PASS
+fact_track.album_id -> dim_album,0,PASS
+fact_track.artist_key -> dim_artist,0,PASS
+fact_track.release_year -> dim_release_year,0,PASS
+fact_track.track_id unique,0,PASS
+popularity between 0 and 100,0,PASS
+release_year between 1950 and 2020,0,PASS
+track attributes identical on every playlist row,0,PASS

@@ -1,0 +1,26 @@
+-- da-learn-09 Spotify music trends - DAX measures (home table: fact_track)
+Tracks = COUNTROWS ( fact_track )
+Playlist Memberships = COUNTROWS ( fact_playlist_track )
+Artists = DISTINCTCOUNT ( fact_track[artist_key] )
+Albums = DISTINCTCOUNT ( fact_track[album_id] )
+Playlists = DISTINCTCOUNT ( fact_playlist_track[playlist_id] )
+Avg Popularity = AVERAGE ( fact_track[popularity] )
+Hit Tracks = CALCULATE ( [Tracks], fact_track[hit_flag] = 1 )
+Hit Rate % = DIVIDE ( [Hit Tracks], [Tracks] )
+Zero Popularity % = DIVIDE ( CALCULATE ( [Tracks], fact_track[popularity] = 0 ), [Tracks] )
+Avg Duration Min = AVERAGE ( fact_track[duration_min] )
+Released 2010+ % = DIVIDE ( CALCULATE ( [Tracks], fact_track[release_year] >= 2010 ), [Tracks] )
+Avg Danceability = AVERAGE ( fact_track[danceability] )
+Avg Energy = AVERAGE ( fact_track[energy] )
+Avg Acousticness = AVERAGE ( fact_track[acousticness] )
+Avg Instrumentalness = AVERAGE ( fact_track[instrumentalness] )
+Multi Genre Track % = DIVIDE ( CALCULATE ( [Tracks], fact_track[genre_count] > 1 ), [Tracks] )
+-- use with dim_genre on the axis via fact_track[primary_genre_key] (one count per track)
+Genre Tracks = [Tracks]
+-- use with dim_subgenre / dim_playlist (membership grain; a track on two playlists counts twice)
+Membership Tracks = CALCULATE ( DISTINCTCOUNT ( fact_playlist_track[track_id] ) )
+Membership Avg Popularity =
+AVERAGEX (
+    VALUES ( fact_playlist_track[track_id] ),
+    CALCULATE ( AVERAGE ( fact_track[popularity] ) )
+)

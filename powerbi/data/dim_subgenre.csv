@@ -1,0 +1,25 @@
+subgenre_key,subgenre,genre,genre_key
+1,big room,edm,1
+2,electro house,edm,1
+3,pop edm,edm,1
+4,progressive electro house,edm,1
+5,latin hip hop,latin,2
+6,latin pop,latin,2
+7,reggaeton,latin,2
+8,tropical,latin,2
+9,dance pop,pop,3
+10,electropop,pop,3
+11,indie poptimism,pop,3
+12,post-teen pop,pop,3
+13,hip pop,r&b,4
+14,neo soul,r&b,4
+15,new jack swing,r&b,4
+16,urban contemporary,r&b,4
+17,gangster rap,rap,5
+18,hip hop,rap,5
+19,southern hip hop,rap,5
+20,trap,rap,5
+21,album rock,rock,6
+22,classic rock,rock,6
+23,hard rock,rock,6
+24,permanent wave,rock,6

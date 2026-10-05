@@ -1,0 +1,144 @@
+{
+ "project": "da-learn-09-spotify-music-trends",
+ "dataset": "30000 Spotify Songs (TidyTuesday 2020-01-21, collected with the spotifyr package from the Spotify Web API; Kaggle: joebeachcapital/30000-spotify-songs)",
+ "source_mode": "full",
+ "kpis": {
+  "tracks_total": 28356,
+  "playlist_memberships": 32251,
+  "artists_total": 10693,
+  "albums_total": 22545,
+  "playlists_total": 471,
+  "genres_total": 6,
+  "avg_popularity": 39.33,
+  "hit_pct": 9.29,
+  "zero_popularity_pct": 9.24,
+  "first_release_year": 1957,
+  "last_release_year": 2020,
+  "released_2010_plus_pct": 72.15,
+  "avg_duration_min": 3.776,
+  "multi_genre_track_pct": 5.41
+ },
+ "analysis_tables": [
+  "tables/a_genre_summary.csv",
+  "tables/a_subgenre_popularity.csv",
+  "tables/a_feature_popularity_corr.csv",
+  "tables/a_popularity_by_feature_bin.csv",
+  "tables/a_popularity_band_profile.csv",
+  "tables/a_popularity_by_duration.csv",
+  "tables/a_trend_by_year.csv",
+  "tables/a_trend_by_decade.csv",
+  "tables/a_genre_by_decade.csv",
+  "tables/a_artist_leaderboard.csv",
+  "tables/a_artist_concentration.csv"
+ ],
+ "data_quality": {
+  "row_counts": [
+   {
+    "entity": "playlist_rows",
+    "raw_rows": 32833,
+    "distinct_keys": 32251,
+    "clean_rows": 32251,
+    "grain": "track_id x playlist_id"
+   },
+   {"entity": "tracks", "raw_rows": null, "distinct_keys": 28356, "clean_rows": 28356, "grain": "track_id"},
+   {"entity": "fact_track", "raw_rows": null, "distinct_keys": null, "clean_rows": 28356, "grain": "track"},
+   {
+    "entity": "fact_playlist_track",
+    "raw_rows": null,
+    "distinct_keys": null,
+    "clean_rows": 32251,
+    "grain": "track x playlist"
+   },
+   {
+    "entity": "dim_artist",
+    "raw_rows": null,
+    "distinct_keys": null,
+    "clean_rows": 10693,
+    "grain": "artist name"
+   },
+   {"entity": "dim_album", "raw_rows": null, "distinct_keys": null, "clean_rows": 22545, "grain": "album_id"},
+   {"entity": "dim_genre", "raw_rows": null, "distinct_keys": null, "clean_rows": 6, "grain": "genre"},
+   {
+    "entity": "dim_subgenre",
+    "raw_rows": null,
+    "distinct_keys": null,
+    "clean_rows": 24,
+    "grain": "genre x subgenre"
+   },
+   {
+    "entity": "dim_playlist",
+    "raw_rows": null,
+    "distinct_keys": null,
+    "clean_rows": 471,
+    "grain": "playlist_id"
+   },
+   {
+    "entity": "dim_release_year",
+    "raw_rows": null,
+    "distinct_keys": null,
+    "clean_rows": 63,
+    "grain": "release year"
+   }
+  ],
+  "null_rates": [
+   {
+    "entity": "tracks",
+    "column_name": "track_name / artist / album_name",
+    "raw_missing_pct": 0.015,
+    "clean_null_pct": 0.014,
+    "treatment": "R-style NA -> NULL; artist shown as Unknown artist"
+   },
+   {
+    "entity": "tracks",
+    "column_name": "tempo",
+    "raw_missing_pct": 0.003,
+    "clean_null_pct": 0.004,
+    "treatment": "tempo = 0 is invalid -> NULL"
+   },
+   {
+    "entity": "tracks",
+    "column_name": "release_date (day precision)",
+    "raw_missing_pct": 5.744,
+    "clean_null_pct": 5.928,
+    "treatment": "yyyy / yyyy-mm padded to the 1st; precision kept in release_date_precision"
+   }
+  ],
+  "issues": {
+   "playlist_rows: duplicate (track_id, playlist_id) rows dropped": 582,
+   "tracks: appear on more than one playlist row": 2818,
+   "tracks: appear under more than one genre (primary genre assigned)": 1533,
+   "tracks: missing name / artist / album (NA)": 4,
+   "tracks: tempo = 0 (set NULL)": 1,
+   "tracks: release date year-only": 1656,
+   "tracks: release date year-month only": 25,
+   "tracks: popularity = 0": 2620,
+   "tracks: duration outlier (outside Q1/Q3 -/+ 3*IQR, kept)": 191,
+   "tracks: shorter than 1 minute (kept)": 25,
+   "tracks: same name + artist under several track_ids (kept)": 3943
+  },
+  "assertions": {
+   "fact_track.track_id unique": "PASS",
+   "fact_track rows = distinct raw track_id": "PASS",
+   "track attributes identical on every playlist row": "PASS",
+   "fact_playlist_track (track_id, playlist_id) unique": "PASS",
+   "fact_playlist_track.track_id -> fact_track": "PASS",
+   "fact_playlist_track.playlist_id -> dim_playlist": "PASS",
+   "fact_track.artist_key -> dim_artist": "PASS",
+   "fact_track.album_id -> dim_album": "PASS",
+   "fact_track.release_year -> dim_release_year": "PASS",
+   "popularity between 0 and 100": "PASS",
+   "0-1 audio features in range": "PASS",
+   "every release date parsed": "PASS",
+   "release_year between 1950 and 2020": "PASS"
+  }
+ },
+ "engine": {"duckdb": "1.5.6", "python": "3.13.5"},
+ "sql_timings_s": {
+  "00_duckdb_compat.sql": 0.143,
+  "01_staging.sql": 10.199,
+  "02_cleaning.sql": 5.422,
+  "03_model.sql": 0.765,
+  "04_analysis.sql": 0.366,
+  "05_quality_checks.sql": 0.188
+ }
+}

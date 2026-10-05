@@ -1,0 +1,25 @@
+genre,subgenre,playlist_tracks,avg_popularity,hit_pct
+edm,big room,1206,32.28,3.15
+edm,electro house,1511,35.51,2.91
+edm,pop edm,1469,45.35,20.22
+edm,progressive electro house,1713,27.71,1.98
+latin,latin hip hop,1656,43.45,25.0
+latin,latin pop,1168,48.46,20.8
+latin,reggaeton,949,52.87,27.4
+latin,tropical,1288,43.33,6.06
+pop,dance pop,1298,52.08,22.57
+pop,electropop,1408,42.73,23.15
+pop,indie poptimism,1672,42.48,10.05
+pop,post-teen pop,1129,56.83,40.12
+r&b,hip pop,1011,50.86,27.7
+r&b,neo soul,1637,32.69,4.52
+r&b,new jack swing,1133,28.03,1.77
+r&b,urban contemporary,1405,50.52,22.06
+rap,gangster rap,1458,35.14,6.79
+rap,hip hop,1322,53.77,17.85
+rap,southern hip hop,1675,36.45,6.09
+rap,trap,1277,50.24,15.27
+rock,album rock,1065,38.32,10.33
+rock,classic rock,1296,40.81,13.73
+rock,hard rock,1400,36.33,8.64
+rock,permanent wave,1105,54.0,22.44

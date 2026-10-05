@@ -1,0 +1,4 @@
+entity,column_name,raw_missing_pct,clean_null_pct,treatment
+tracks,release_date (day precision),5.744,5.928,yyyy / yyyy-mm padded to the 1st; precision kept in release_date_precision
+tracks,tempo,0.003,0.004,tempo = 0 is invalid -> NULL
+tracks,track_name / artist / album_name,0.015,0.014,R-style NA -> NULL; artist shown as Unknown artist

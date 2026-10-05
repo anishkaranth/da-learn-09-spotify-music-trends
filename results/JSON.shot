@@ -1,0 +1,131 @@
+{
+ "snapshot": "headline KPIs + run config",
+ "project": "da-learn-09-spotify-music-trends",
+ "source_mode": "full",
+ "engine": "duckdb 1.5.6",
+ "config": {
+  "sql_dialect": "Spark SQL style (+ DuckDB shims in sql/00), run on DuckDB",
+  "grain": "fact_track = one row per track_id; fact_playlist_track = track x playlist",
+  "hit_definition": "popularity >= 70 (Spotify 0-100 score at extraction, Jan 2020)",
+  "primary_genre_rule": "genre of most playlist rows, ties alphabetical",
+  "outlier_rule": "duration outside Q1/Q3 -/+ 3*IQR (flagged, kept)",
+  "sample_rule": "substr(track_id,22,1) = 'Q' AND substr(track_id,1,1) IN ('2','3') (data/raw, 135 rows)"
+ },
+ "headline": {
+  "tracks_total": 28356,
+  "playlist_memberships": 32251,
+  "artists_total": 10693,
+  "albums_total": 22545,
+  "playlists_total": 471,
+  "genres_total": 6,
+  "avg_popularity": 39.33,
+  "hit_pct": 9.29,
+  "zero_popularity_pct": 9.24,
+  "first_release_year": 1957,
+  "last_release_year": 2020,
+  "released_2010_plus_pct": 72.15,
+  "avg_duration_min": 3.776,
+  "multi_genre_track_pct": 5.41
+ },
+ "genres": [
+  {"primary_genre": "latin", "tracks": 4427, "avg_popularity": 43.35, "hit_pct": 13.82},
+  {"primary_genre": "pop", "tracks": 4479, "avg_popularity": 43.16, "hit_pct": 13.46},
+  {"primary_genre": "rap", "tracks": 5018, "avg_popularity": 40.27, "hit_pct": 5.96},
+  {"primary_genre": "rock", "tracks": 4264, "avg_popularity": 39.6, "hit_pct": 8.91},
+  {"primary_genre": "r&b", "tracks": 4631, "avg_popularity": 36.8, "hit_pct": 8.29},
+  {"primary_genre": "edm", "tracks": 5537, "avg_popularity": 34.07, "hit_pct": 6.45}
+ ],
+ "top_subgenres_by_popularity": [
+  {"genre": "pop", "subgenre": "post-teen pop", "avg_popularity": 56.83, "hit_pct": 40.12},
+  {"genre": "rock", "subgenre": "permanent wave", "avg_popularity": 54.0, "hit_pct": 22.44},
+  {"genre": "rap", "subgenre": "hip hop", "avg_popularity": 53.77, "hit_pct": 17.85},
+  {"genre": "latin", "subgenre": "reggaeton", "avg_popularity": 52.87, "hit_pct": 27.4},
+  {"genre": "pop", "subgenre": "dance pop", "avg_popularity": 52.08, "hit_pct": 22.57}
+ ],
+ "feature_corr_with_popularity": {
+  "duration_min": -0.1397,
+  "instrumentalness": -0.1244,
+  "energy": -0.1036,
+  "liveness": -0.0528,
+  "tempo": 0.0042,
+  "speechiness": 0.0052,
+  "valence": 0.0226,
+  "loudness": 0.0373,
+  "danceability": 0.0466,
+  "acousticness": 0.0917
+ },
+ "by_decade": [
+  {
+   "release_decade": 1950,
+   "tracks": 3,
+   "avg_popularity": 44.33,
+   "avg_acousticness": 0.538,
+   "avg_duration_min": 2.44
+  },
+  {
+   "release_decade": 1960,
+   "tracks": 132,
+   "avg_popularity": 46.45,
+   "avg_acousticness": 0.342,
+   "avg_duration_min": 3.63
+  },
+  {
+   "release_decade": 1970,
+   "tracks": 783,
+   "avg_popularity": 44.26,
+   "avg_acousticness": 0.244,
+   "avg_duration_min": 4.28
+  },
+  {
+   "release_decade": 1980,
+   "tracks": 1090,
+   "avg_popularity": 42.19,
+   "avg_acousticness": 0.156,
+   "avg_duration_min": 4.47
+  },
+  {
+   "release_decade": 1990,
+   "tracks": 2081,
+   "avg_popularity": 37.97,
+   "avg_acousticness": 0.143,
+   "avg_duration_min": 4.42
+  },
+  {
+   "release_decade": 2000,
+   "tracks": 3807,
+   "avg_popularity": 31.93,
+   "avg_acousticness": 0.164,
+   "avg_duration_min": 4.13
+  },
+  {
+   "release_decade": 2010,
+   "tracks": 19834,
+   "avg_popularity": 40.38,
+   "avg_acousticness": 0.18,
+   "avg_duration_min": 3.6
+  },
+  {
+   "release_decade": 2020,
+   "tracks": 626,
+   "avg_popularity": 42.78,
+   "avg_acousticness": 0.211,
+   "avg_duration_min": 3.24
+  }
+ ],
+ "top_artists_by_tracks": [
+  {"artist_name": "Queen", "tracks": 130, "avg_popularity": 42.4, "main_genre": "rock"},
+  {"artist_name": "Martin Garrix", "tracks": 87, "avg_popularity": 41.4, "main_genre": "edm"},
+  {"artist_name": "Don Omar", "tracks": 84, "avg_popularity": 39.06, "main_genre": "latin"},
+  {"artist_name": "David Guetta", "tracks": 81, "avg_popularity": 49.37, "main_genre": "edm"},
+  {"artist_name": "Dimitri Vegas & Like Mike", "tracks": 68, "avg_popularity": 36.22, "main_genre": "edm"}
+ ],
+ "top_artists_by_popularity_min10": [
+  {"artist_name": "Billie Eilish", "tracks": 26, "avg_popularity": 76.96},
+  {"artist_name": "Tones and I", "tracks": 10, "avg_popularity": 74.6},
+  {"artist_name": "Green Day", "tracks": 10, "avg_popularity": 73.2},
+  {"artist_name": "Camila Cabello", "tracks": 16, "avg_popularity": 72.25},
+  {"artist_name": "Khalid", "tracks": 28, "avg_popularity": 71.64}
+ ],
+ "assertions_passed": 13,
+ "assertions_total": 13
+}

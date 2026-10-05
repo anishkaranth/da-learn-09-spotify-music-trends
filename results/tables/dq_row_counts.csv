@@ -1,0 +1,11 @@
+entity,raw_rows,distinct_keys,clean_rows,grain
+dim_album,,,22545,album_id
+dim_artist,,,10693,artist name
+dim_genre,,,6,genre
+dim_playlist,,,471,playlist_id
+dim_release_year,,,63,release year
+dim_subgenre,,,24,genre x subgenre
+fact_playlist_track,,,32251,track x playlist
+fact_track,,,28356,track
+playlist_rows,32833,32251,32251,track_id x playlist_id
+tracks,,28356,28356,track_id
